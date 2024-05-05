@@ -4,41 +4,46 @@ using UnityEngine;
 
 public class Player_Movment : MonoBehaviour
 {
-    private CharacterController controller;
-    private Vector3 playerVelocity;
-    private bool groundedPlayer;
-    private float playerSpeed = 2.0f;
-    private float jumpHeight = 1.0f;
-    private float gravityValue = -9.81f;
+    float horizontalInput;
+    float verticalInput;
+    public float rotationSpeed;
+    public float movementSpeed;
 
     private void Start()
     {
-        controller = gameObject.AddComponent<CharacterController>();
+
     }
 
     void Update()
     {
-        groundedPlayer = controller.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0)
+        horizontalInput = Input.GetAxis("Horizontal"); //declarem el movment
+        verticalInput = Input.GetAxis("Vertical"); // declarem el movment
+
+        //movment
+        Vector3 movementDirection = new Vector3(horizontalInput, 0, 0);
+        Vector3 rotationMovment = new Vector3(0, verticalInput * rotationSpeed * Time.deltaTime, 0);
+
+        if (Input.GetKey(KeyCode.A))
         {
-            playerVelocity.y = 0f;
+            transform.position = transform.position + (-transform.right) * movementSpeed * Time.deltaTime;
         }
 
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        controller.Move(move * Time.deltaTime * playerSpeed);
-
-        if (move != Vector3.zero)
+        if (Input.GetKey(KeyCode.D))
         {
-            gameObject.transform.forward = move;
+            transform.position = transform.position + (transform.right) * movementSpeed * Time.deltaTime;
+        }
+        
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform.position = transform.position + transform.forward * movementSpeed * Time.deltaTime;
+        }
+        
+        
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.position = transform.position + (-transform.forward) * movementSpeed * Time.deltaTime;
         }
 
-        // Changes the height position of the player..
-        if (Input.GetButtonDown("Jump") && groundedPlayer)
-        {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-        }
 
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
     }
 }
