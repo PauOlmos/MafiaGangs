@@ -9,6 +9,7 @@ public class Player_Movment : MonoBehaviour
     public float rotationSpeed;
     public float movementSpeed;
 
+    public float hp;
     private void Start()
     {
 
@@ -45,5 +46,13 @@ public class Player_Movment : MonoBehaviour
         }
 
 
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        //if (collision.gameObject.tag == "Enemy")
+        //{
+        //    hp = hp - 10;
+        //}
     }
 }

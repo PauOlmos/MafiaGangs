@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ActivateEnemy : MonoBehaviour
 {
     // Start is called before the first frame update
-    public EnemyLogic enemy;
+    public EnemyLogic[] enemy;
     void Start()
     {
         
@@ -22,14 +23,18 @@ public class ActivateEnemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-          enemy.active = EnemyPathfindTrue(true);
+            foreach (var item in enemy)
+            {
+                item.active = EnemyPathfindTrue(true);
+            }
+
         }
     }
     private void OnTriggerExit(Collider collision)
     {
-        if (collision.gameObject.tag == "Player")
+        foreach (var item in enemy)
         {
-          enemy.active = EnemyPathfindTrue(false);
+            item.active = EnemyPathfindTrue(false);
         }
     }
 
