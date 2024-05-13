@@ -32,9 +32,12 @@ public class ActivateEnemy : MonoBehaviour
     }
     private void OnTriggerExit(Collider collision)
     {
-        foreach (var item in enemy)
+        if (collision.gameObject.tag == "Player")
         {
-            item.active = EnemyPathfindTrue(false);
+            foreach (var item in enemy)
+            {
+                item.active = EnemyPathfindTrue(false);
+            }
         }
     }
 

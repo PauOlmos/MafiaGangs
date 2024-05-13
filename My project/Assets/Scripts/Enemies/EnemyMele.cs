@@ -8,8 +8,10 @@ public class EnemyMele : MonoBehaviour
     private Player_Movment player;
     bool canAtack = false;
     bool atack = true;
-    float atackSpeed = 2f;
-    float damage = 10f;
+    public float atackSpeed;
+    float atackSpeedReset;
+    public float damage = 10f;
+    public float hp;
     void Start()
     {
         player = GameObject.Find("Player").gameObject.GetComponent<Player_Movment>();
@@ -18,37 +20,45 @@ public class EnemyMele : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if (canAtack == true) {
-            if (atack == true) {
-                player.hp = player.hp - damage;
-                atack = false;
-            }
-            else {
-                if (atackSpeed >= 0)
-                {
-                    atackSpeed -= Time.deltaTime;
-                }
-                else
-                {
-                    atack = true;
-                    atackSpeed = 10;
-                }
-
-            
-            }
-            
-        }
-
+        atackSpeedReset = atackSpeed;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.tag == "Player") {
+        if (collision.collider.tag == "Player" && canAtack == false) {
             canAtack = true;
         }
     }
-    
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.collider.tag == "Player" && canAtack == true)
+        {
+            
+                if (atack == true)
+                {
+                    player.hp = player.hp - damage;
+                    atack = false;
+                }
+                else
+                {
+                    if (atackSpeed >= 0)
+                    {
+                        atackSpeed -= Time.deltaTime;
+                    }
+                    else
+                    {
+                        atack = true;
+                        atackSpeed = atackSpeedReset;
+                    }
+
+
+                }
+
+            
+        }
+    }
+
     private void OnCollisionExit(Collision collision)
     {
         if (collision.collider.tag == "Player") {
