@@ -51,7 +51,7 @@ public class EnemyLogic : MonoBehaviour
                 objective = player.transform.position;
                 break;
             case ENEMY_TYPE.SHOOTER:
-                float stoppingDistance = 5;
+                float stoppingDistance = -5;
                 Vector3 directionToPlayer = player.transform.position - transform.position ;
 
                 objective = player.transform.position + directionToPlayer.normalized * stoppingDistance;

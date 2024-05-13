@@ -1,3 +1,4 @@
+using DialogueEditor;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -7,6 +8,7 @@ public class ActivateEnemy : MonoBehaviour
 {
     // Start is called before the first frame update
     public EnemyLogic[] enemy;
+
     void Start()
     {
         
@@ -23,9 +25,11 @@ public class ActivateEnemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+         
             foreach (var item in enemy)
             {
                 item.active = EnemyPathfindTrue(true);
+                DialogueHandler.StartDialogue(item.gameObject);
             }
 
         }

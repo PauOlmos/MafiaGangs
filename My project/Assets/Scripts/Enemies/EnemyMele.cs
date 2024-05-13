@@ -15,12 +15,13 @@ public class EnemyMele : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player").gameObject.GetComponent<Player_Movment>();
+        atackSpeedReset = atackSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        atackSpeedReset = atackSpeed;
+
     }
 
     private void OnCollisionEnter(Collision collision)

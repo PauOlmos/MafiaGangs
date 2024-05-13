@@ -379,7 +379,10 @@
 "Assets/ReinTest.cs"
 "Assets/Scripts/Enemies/ActivateEnemy.cs"
 "Assets/Scripts/Enemies/EnemyLogic.cs"
-"Assets/Scripts/Enemies/Player_Movment.cs"
+"Assets/Scripts/Enemies/EnemyMele.cs"
+"Assets/Scripts/Enemies/EnemyShooter.cs"
+"Assets/Scripts/Player/Player_Movment.cs"
+"Assets/Scripts/Projectile/Projectile.cs"
 -langversion:9.0
 
 /deterministic
