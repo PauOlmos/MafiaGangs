@@ -5,51 +5,66 @@ using UnityEngine.EventSystems;
 
 public class Player_Movment : MonoBehaviour
 {
-    float horizontalInput;
-    float verticalInput;
     public float rotationSpeed;
     public float movementSpeed;
 
+    public float jumpForce;
+
+    public float jumpDistcance;
+    public LayerMask Ground;
     public float hp;
+
+    public GameObject orientation;
+    public Rigidbody rb;
+
     private void Start()
     {
-
+        rb = gameObject.GetComponent<Rigidbody>();
     }
 
     void Update()
     {
+
         if (GameTime.isPaused) return;
-
-
-        horizontalInput = Input.GetAxis("Horizontal"); //declarem el movment
-        verticalInput = Input.GetAxis("Vertical"); // declarem el movment
-
-        //movment
-        Vector3 movementDirection = new Vector3(horizontalInput, 0, 0);
-        Vector3 rotationMovment = new Vector3(0, verticalInput * rotationSpeed * GameTime.deltaTime, 0);
 
         if (Input.GetKey(KeyCode.A))
         {
-            transform.position = transform.position + (-transform.right) * movementSpeed * GameTime.deltaTime;
+            gameObject.transform.Rotate(Vector3.up, -Time.deltaTime * rotationSpeed);
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            transform.position = transform.position + (transform.right) * movementSpeed * GameTime.deltaTime;
+            gameObject.transform.Rotate(Vector3.up, Time.deltaTime * rotationSpeed);
         }
-        
+
         if (Input.GetKey(KeyCode.W))
         {
-            transform.position = transform.position + transform.forward * movementSpeed * GameTime.deltaTime;
+            rb.AddForce(gameObject.transform.forward.normalized * movementSpeed * Time.deltaTime, ForceMode.VelocityChange);
         }
-        
-        
+
         if (Input.GetKey(KeyCode.S))
         {
-            transform.position = transform.position + (-transform.forward) * movementSpeed * Time.deltaTime;
+            rb.AddForce(gameObject.transform.forward.normalized * -movementSpeed / 3 * Time.deltaTime, ForceMode.VelocityChange);
         }
 
+        if (Input.GetKeyDown(KeyCode.Space) && Physics.Raycast(gameObject.transform.position, Vector3.down, jumpDistcance, Ground) == true)
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
 
+        gameObject.transform.LookAt(orientation.transform.position);
+
+    }
+
+    void SpeedCap()
+    {
+        Vector3 flatvel = new Vector3(rb.velocity.x, 0.0f, rb.velocity.z);
+
+        if (flatvel.magnitude > movementSpeed * 2f)
+        {
+            Vector3 limitedVel = flatvel.normalized * movementSpeed * 2f;
+            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+        }
     }
 
     private void OnCollisionStay(Collision collision)
