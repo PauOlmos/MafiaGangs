@@ -62,6 +62,6 @@ public class EnemyShooter : MonoBehaviour
          float projectileSpeed = 10f;
          Vector3 shootDirection = (player.transform.position - transform.position).normalized;
         GameObject shoot = Instantiate(projectile, gameObject.transform.position, Quaternion.identity);
-        shoot.GetComponent<Rigidbody>().velocity = new Vector3(shootDirection.x, shootDirection.y, 0f) * projectileSpeed;
+        shoot.GetComponent<Rigidbody>().velocity = new Vector3(shootDirection.x, shootDirection.y, shootDirection.z) * projectileSpeed;
     }
 }

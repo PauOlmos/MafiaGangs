@@ -17,16 +17,18 @@ public class EnemyLogic : MonoBehaviour
     private NavMeshAgent enemy;
     Transform player;
     Vector3 objective;
-    public bool active = false;
+    [HideInInspector] public bool active = false;
     public Vector3 returnPosition;
     ENEMY_TYPE typeEnemy;
     float speed;
     public float backSpeed;
+
     // Start is called before the first frame update
 
 
     void Start()
     {
+
         player = GameObject.Find("Player").GetComponent<Transform>();
         enemy = GetComponent<NavMeshAgent>();
         returnPosition = gameObject.transform.position;
@@ -69,6 +71,7 @@ public class EnemyLogic : MonoBehaviour
         else if (active == false) {
 
             enemy.speed = backSpeed;
+            enemy.transform.LookAt(player.transform.position);
             enemy.SetDestination(returnPosition);
             
         }

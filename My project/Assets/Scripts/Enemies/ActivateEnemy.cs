@@ -8,7 +8,7 @@ public class ActivateEnemy : MonoBehaviour
 {
     // Start is called before the first frame update
     public EnemyLogic[] enemy;
-
+    [HideInInspector] public bool dialogueEnd = false;
     void Start()
     {
         
@@ -25,14 +25,32 @@ public class ActivateEnemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-         
+           
             foreach (var item in enemy)
             {
-                item.active = EnemyPathfindTrue(true);
-                DialogueHandler.StartDialogue(item.gameObject);
+                NPCConversation component = item.GetComponent<NPCConversation>();
+
+                if (component != null && dialogueEnd == false)
+                {
+                    DialogueHandler.StartDialogue(item.gameObject);
+                    dialogueEnd = true;
+                }
+
             }
 
         }
+    }
+    private void OnTriggerStay(Collider collision)
+    {
+        if (collision.gameObject.tag == "Player" && dialogueEnd == true)
+        {
+            foreach (var item in enemy)
+            {
+                item.active = EnemyPathfindTrue(true);
+            }
+
+        }
+
     }
     private void OnTriggerExit(Collider collision)
     {
