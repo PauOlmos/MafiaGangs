@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     // Start is called before the first frame update
-
+    public Player_Movment pMov;
     public GameObject attack;
     public GameObject playerProjectile;
     public Transform attackSource;
@@ -25,12 +25,14 @@ public class PlayerAttack : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Mouse0) && attackTimer >= attackCooldown)
         {
+            pMov.mState = Player_Movment.MovingState.attack;
             attackTimer = 0.0f;
             GameObject mele = Instantiate(attack, attackSource.position, Quaternion.identity);
             mele.GetComponent<DieByTime>().dieTime = 0.25f;
         }
         if(Input.GetKeyDown(KeyCode.Mouse1) && attackTimer >= attackCooldown)
         {
+            pMov.mState = Player_Movment.MovingState.shoot;
             attackTimer = 0.0f;
             GameObject projectile = Instantiate(playerProjectile, attackSource.position, Quaternion.identity);
             projectile.GetComponent<DieByTime>().dieTime = 5.25f;

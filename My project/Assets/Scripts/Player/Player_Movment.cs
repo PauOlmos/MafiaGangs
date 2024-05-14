@@ -17,6 +17,14 @@ public class Player_Movment : MonoBehaviour
     public GameObject orientation;
     public Rigidbody rb;
 
+    public bool isRunning = false;
+    public float timer = 0.0f;
+
+    public enum MovingState
+    {
+        idle,run,back,attack,shoot
+    }
+    public MovingState mState = MovingState.idle;
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
@@ -27,33 +35,61 @@ public class Player_Movment : MonoBehaviour
 
         if (GameTime.isPaused) return;
 
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) && mState != MovingState.attack && mState != MovingState.shoot)
         {
             gameObject.transform.Rotate(Vector3.up, -Time.deltaTime * rotationSpeed);
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) && mState != MovingState.attack && mState != MovingState.shoot)
         {
             gameObject.transform.Rotate(Vector3.up, Time.deltaTime * rotationSpeed);
         }
 
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) && mState != MovingState.attack && mState != MovingState.shoot)
         {
             rb.AddForce(gameObject.transform.forward.normalized * movementSpeed * Time.deltaTime, ForceMode.VelocityChange);
         }
 
-        if (Input.GetKey(KeyCode.S))
+        if (mState != MovingState.attack && mState != MovingState.shoot)
         {
+            if (rb.velocity.normalized.z > 0) mState = MovingState.run;
+            else mState = MovingState.idle;
+        }
+        
+
+        if (Input.GetKey(KeyCode.S) && mState != MovingState.attack && mState != MovingState.shoot)
+        {
+            mState = MovingState.back;
             rb.AddForce(gameObject.transform.forward.normalized * -movementSpeed / 3 * Time.deltaTime, ForceMode.VelocityChange);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && Physics.Raycast(gameObject.transform.position, Vector3.down, jumpDistcance, Ground) == true)
+        if (Input.GetKeyDown(KeyCode.Space) && Physics.Raycast(gameObject.transform.position, Vector3.down, jumpDistcance, Ground) == true && mState != MovingState.attack && mState != MovingState.shoot)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
 
-        //gameObject.transform.LookAt(orientation.transform.position);
+        if (mState == MovingState.attack)
+        {
+            timer += Time.deltaTime;
+            if(timer > 2.5f)
+            {
+                mState = MovingState.idle;
+                timer = 0.0f;
+            }
+        
+        }
+        if (mState == MovingState.shoot)
+        {
+            timer += Time.deltaTime;
+            if(timer > 1.0f)
+            {
+                mState = MovingState.idle;
+                timer = 0.0f;
+            }
+        
+        }
 
+        SpeedCap();
     }
 
     void SpeedCap()
