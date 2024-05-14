@@ -22,25 +22,28 @@ public class EnemyShooter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if (atack == true)
-       {
-            CreateProjectile();
-            atack = false;
-       }
-       else
-       {
-           if (atackSpeed >= 0)
-           {
-               atackSpeed -= Time.deltaTime;
-           }
-           else
-           {
-               atack = true;
-               atackSpeed = atackSpeedReset;
-           }
+       // if () {
+       //     if (atack == true)
+       //     {
+       //         CreateProjectile();
+       //         atack = false;
+       //     }
+       //     else
+       //     {
+       //         if (atackSpeed >= 0)
+       //         {
+       //             atackSpeed -= Time.deltaTime;
+       //         }
+       //         else
+       //         {
+       //             atack = true;
+       //             atackSpeed = atackSpeedReset;
+       //         }
+       //
+       //
+       //     }
+       // }
 
-
-       }
     }
 
     private void OnCollisionEnter(Collision collision)

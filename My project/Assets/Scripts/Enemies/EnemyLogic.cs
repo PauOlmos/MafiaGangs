@@ -48,13 +48,16 @@ public class EnemyLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (typeEnemy) {
+
+        if (GameTime.isPaused) return;
+        switch (typeEnemy)
+        {
             case ENEMY_TYPE.MELE:
                 objective = player.transform.position;
                 break;
             case ENEMY_TYPE.SHOOTER:
                 float stoppingDistance = -5;
-                Vector3 directionToPlayer = player.transform.position - transform.position ;
+                Vector3 directionToPlayer = player.transform.position - transform.position;
 
                 objective = player.transform.position + directionToPlayer.normalized * stoppingDistance;
 
@@ -68,12 +71,13 @@ public class EnemyLogic : MonoBehaviour
             enemy.speed = speed;
             enemy.SetDestination(objective);
         }
-        else if (active == false) {
+        else if (active == false)
+        {
 
             enemy.speed = backSpeed;
             enemy.transform.LookAt(player.transform.position);
             enemy.SetDestination(returnPosition);
-            
+
         }
     }
 }

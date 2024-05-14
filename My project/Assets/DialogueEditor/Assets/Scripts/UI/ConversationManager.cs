@@ -7,7 +7,7 @@ namespace DialogueEditor
 {
     public class ConversationManager : MonoBehaviour
     {
-        private enum eState
+        public enum eState
         {
             TransitioningDialogueBoxOn,
             ScrollingText,
@@ -261,7 +261,7 @@ namespace DialogueEditor
         // Set state
         //--------------------------------------
 
-        private void SetState(eState newState)
+        public void SetState(eState newState)
         {
             // Exit
             switch (m_state)
@@ -642,7 +642,7 @@ namespace DialogueEditor
             NpcIcon.sprite = BlankSprite;
         }
 
-        private void TurnOffUI()
+        public void TurnOffUI()
         {
             DialoguePanel.gameObject.SetActive(false);
             OptionsPanel.gameObject.SetActive(false);
