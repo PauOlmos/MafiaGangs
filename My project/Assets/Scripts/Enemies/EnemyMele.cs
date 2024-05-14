@@ -66,4 +66,14 @@ public class EnemyMele : MonoBehaviour
             canAtack = false;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "PlayerAttack")
+        {
+            hp -= 10;
+            Destroy(other.gameObject);
+        }
+    }
+
 }

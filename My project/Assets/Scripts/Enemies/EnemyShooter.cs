@@ -64,6 +64,15 @@ public class EnemyShooter : MonoBehaviour
 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "PlayerAttack")
+        {
+            hp -= 10;
+            Destroy(other.gameObject);
+        }
+    }
+
     void CreateProjectile() {
          float projectileSpeed = 10f;
          Vector3 shootDirection = (player.transform.position - transform.position).normalized;

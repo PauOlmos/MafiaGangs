@@ -52,7 +52,7 @@ public class Player_Movment : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
 
-        gameObject.transform.LookAt(orientation.transform.position);
+        //gameObject.transform.LookAt(orientation.transform.position);
 
     }
 
