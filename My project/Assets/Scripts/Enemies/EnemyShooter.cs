@@ -13,36 +13,39 @@ public class EnemyShooter : MonoBehaviour
     float atackSpeedReset;
     public float damage = 10f;
     public float hp;
+    EnemyLogic enemyLogic;
     void Start()
     {
         player = GameObject.Find("Player").gameObject.GetComponent<Player_Movment>();
+        enemyLogic = gameObject.GetComponent<EnemyLogic>();
         atackSpeedReset = atackSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
-       // if () {
-       //     if (atack == true)
-       //     {
-       //         CreateProjectile();
-       //         atack = false;
-       //     }
-       //     else
-       //     {
-       //         if (atackSpeed >= 0)
-       //         {
-       //             atackSpeed -= Time.deltaTime;
-       //         }
-       //         else
-       //         {
-       //             atack = true;
-       //             atackSpeed = atackSpeedReset;
-       //         }
-       //
-       //
-       //     }
-       // }
+        if (GameTime.isPaused) return;
+        if (enemyLogic.active == true) {
+            if (atack == true)
+            {
+                CreateProjectile();
+                atack = false;
+            }
+            else
+            {
+                if (atackSpeed >= 0)
+                {
+                    atackSpeed -= Time.deltaTime;
+                }
+                else
+                {
+                    atack = true;
+                    atackSpeed = atackSpeedReset;
+                }
+       
+       
+            }
+        }
 
     }
 

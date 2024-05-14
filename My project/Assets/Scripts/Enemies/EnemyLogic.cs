@@ -73,11 +73,9 @@ public class EnemyLogic : MonoBehaviour
         }
         else if (active == false)
         {
-
             enemy.speed = backSpeed;
             enemy.transform.LookAt(player.transform.position);
             enemy.SetDestination(returnPosition);
-
         }
     }
 }
