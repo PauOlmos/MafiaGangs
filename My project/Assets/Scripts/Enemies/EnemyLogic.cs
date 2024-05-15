@@ -77,6 +77,8 @@ public class EnemyLogic : MonoBehaviour
             enemy.transform.LookAt(player.transform.position);
             enemy.SetDestination(returnPosition);
         }
+
+
     }
 
     

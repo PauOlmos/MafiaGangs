@@ -37,17 +37,17 @@ public class Player_Movment : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A) && mState != MovingState.attack && mState != MovingState.shoot)
         {
-            gameObject.transform.Rotate(Vector3.up, -Time.deltaTime * rotationSpeed);
+            gameObject.transform.Rotate(Vector3.up, -GameTime.deltaTime * rotationSpeed);
         }
 
         if (Input.GetKey(KeyCode.D) && mState != MovingState.attack && mState != MovingState.shoot)
         {
-            gameObject.transform.Rotate(Vector3.up, Time.deltaTime * rotationSpeed);
+            gameObject.transform.Rotate(Vector3.up, GameTime.deltaTime * rotationSpeed);
         }
 
         if (Input.GetKey(KeyCode.W) && mState != MovingState.attack && mState != MovingState.shoot)
         {
-            rb.AddForce(gameObject.transform.forward.normalized * movementSpeed * Time.deltaTime, ForceMode.VelocityChange);
+            rb.AddForce(gameObject.transform.forward.normalized * movementSpeed * GameTime.deltaTime, ForceMode.VelocityChange);
         }
 
         if (mState != MovingState.attack && mState != MovingState.shoot)
@@ -60,7 +60,7 @@ public class Player_Movment : MonoBehaviour
         if (Input.GetKey(KeyCode.S) && mState != MovingState.attack && mState != MovingState.shoot)
         {
             mState = MovingState.back;
-            rb.AddForce(gameObject.transform.forward.normalized * -movementSpeed / 3 * Time.deltaTime, ForceMode.VelocityChange);
+            rb.AddForce(gameObject.transform.forward.normalized * -movementSpeed / 3 * GameTime.deltaTime, ForceMode.VelocityChange);
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && Physics.Raycast(gameObject.transform.position, Vector3.down, jumpDistcance, Ground) == true && mState != MovingState.attack && mState != MovingState.shoot)
@@ -70,7 +70,7 @@ public class Player_Movment : MonoBehaviour
 
         if (mState == MovingState.attack)
         {
-            timer += Time.deltaTime;
+            timer += GameTime.deltaTime;
             if(timer > 2.5f)
             {
                 mState = MovingState.idle;
@@ -80,7 +80,7 @@ public class Player_Movment : MonoBehaviour
         }
         if (mState == MovingState.shoot)
         {
-            timer += Time.deltaTime;
+            timer += GameTime.deltaTime;
             if(timer > 1.0f)
             {
                 mState = MovingState.idle;

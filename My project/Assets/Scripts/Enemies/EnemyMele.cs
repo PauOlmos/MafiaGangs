@@ -12,8 +12,10 @@ public class EnemyMele : MonoBehaviour
     float atackSpeedReset;
     public float damage = 10f;
     public float hp;
+    EnemyLogic enemyLogic;
     void Start()
     {
+        enemyLogic = GetComponent<EnemyLogic>();
         player = GameObject.Find("Player").gameObject.GetComponent<Player_Movment>();
         atackSpeedReset = atackSpeed;
     }
@@ -21,7 +23,10 @@ public class EnemyMele : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (hp <= 0 )
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -69,10 +74,13 @@ public class EnemyMele : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PlayerAttack")
+        if (other.gameObject.tag == "PlayerAttack" )
         {
-            hp -= 10;
             Destroy(other.gameObject);
+            if (enemyLogic.active == true)
+            {
+                hp -= 10;
+            }
         }
     }
 

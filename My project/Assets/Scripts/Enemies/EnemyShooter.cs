@@ -47,6 +47,13 @@ public class EnemyShooter : MonoBehaviour
             }
         }
 
+        if (hp <= 0)
+        {
+            Destroy(gameObject);
+        }
+
+
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -66,10 +73,15 @@ public class EnemyShooter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PlayerAttack")
+        if (other.gameObject.tag == "PlayerAttack" )
         {
-            hp -= 10;
+            
             Destroy(other.gameObject);
+            if (enemyLogic.active == true)
+            {
+                hp -= 10;
+            }
+       
         }
     }
 
@@ -79,4 +91,5 @@ public class EnemyShooter : MonoBehaviour
         GameObject shoot = Instantiate(projectile, gameObject.transform.position, Quaternion.identity);
         shoot.GetComponent<Rigidbody>().velocity = new Vector3(shootDirection.x, shootDirection.y, shootDirection.z) * projectileSpeed;
     }
+
 }
