@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueHandler : MonoBehaviour
-{
+public class DialogueHandler : MonoBehaviour 
+{ 
     public ConversationManager conversationManager;
 
     private void OnEnable()
@@ -18,14 +18,15 @@ public class DialogueHandler : MonoBehaviour
         ConversationManager.OnConversationEnded -= HandleConversationEnd_C4P;
     }
 
-    public static void StartDialogue(GameObject npcConversation)
+    public static void StartDialogue(GameObject npcConversation, Rigidbody player)
     {
         NPCConversation conversation = npcConversation.GetComponent<NPCConversation>();
 
         ConversationManager _conversationManager = FindObjectOfType<ConversationManager>();
 
         _conversationManager.StartConversation(conversation);
-        
+
+        player.velocity = Vector3.zero;
     }
 
     void HandleConversationStart_C4P() { 

@@ -15,6 +15,6 @@ public class ReinTest : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        DialogueHandler.StartDialogue(gameObject);
+        //DialogueHandler.StartDialogue(gameObject);
     }
 }

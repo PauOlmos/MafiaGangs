@@ -20,7 +20,10 @@ public class PlayerAnimations : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (GameTime.isPaused)
+        {
+            pMov.mState = Player_Movment.MovingState.idle;
+        }
         switch (pMov.mState)
         {
             case Player_Movment.MovingState.idle:
@@ -44,6 +47,9 @@ public class PlayerAnimations : MonoBehaviour
                 currentClip = playerAnimations[4];
                 break;
         }
+
+        
+
 
     }
 }

@@ -96,18 +96,11 @@ public class Player_Movment : MonoBehaviour
     {
         Vector3 flatvel = new Vector3(rb.velocity.x, 0.0f, rb.velocity.z);
 
-        if (flatvel.magnitude > movementSpeed * 2f)
+        if (flatvel.magnitude > movementSpeed * 1f)
         {
-            Vector3 limitedVel = flatvel.normalized * movementSpeed * 2f;
+            Vector3 limitedVel = flatvel.normalized * movementSpeed * 0.2f;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
     }
 
-    private void OnCollisionStay(Collision collision)
-    {
-        //if (collision.gameObject.tag == "Enemy")
-        //{
-        //    hp = hp - 10;
-        //}
-    }
 }

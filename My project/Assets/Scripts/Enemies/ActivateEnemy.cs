@@ -32,7 +32,7 @@ public class ActivateEnemy : MonoBehaviour
 
                 if (component != null && dialogueEnd == false)
                 {
-                    DialogueHandler.StartDialogue(item.gameObject);
+                    DialogueHandler.StartDialogue(item.gameObject, collision.gameObject.GetComponent<Rigidbody>());
                     dialogueEnd = true;
                 }
 
