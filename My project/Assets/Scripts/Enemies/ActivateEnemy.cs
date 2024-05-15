@@ -17,7 +17,7 @@ public class ActivateEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 
 
@@ -25,18 +25,24 @@ public class ActivateEnemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-           
-            foreach (var item in enemy)
-            {
-                NPCConversation component = item.GetComponent<NPCConversation>();
 
-                if (component != null && dialogueEnd == false)
+            for (int i = 0; i < enemy.Length; i++) 
+            {
+                if (enemy[i] != null)
                 {
-                    DialogueHandler.StartDialogue(item.gameObject, collision.gameObject.GetComponent<Rigidbody>());
-                    dialogueEnd = true;
+                    NPCConversation component = enemy[i].GetComponent<NPCConversation>();
+
+                    if (component != null && dialogueEnd == false)
+                    {
+                        DialogueHandler.StartDialogue(enemy[i].gameObject);
+                        dialogueEnd = true;
+                    }
                 }
 
+
+                
             }
+
 
         }
     }
@@ -67,4 +73,6 @@ public class ActivateEnemy : MonoBehaviour
 
         return hasEnter;
     }
+
+
 }
